@@ -1,0 +1,33 @@
+.container {
+	margin:auto;
+	background-color:lightgreen;
+	text-align:center;
+	width:40%;
+}
+
+.header {
+	font-family:sans-serif;
+}
+
+.info {
+	font-family:sans-serif;
+	font-weight:bold;
+	font-size:18px;
+}
+
+.label {
+	font-family:sans-serif;
+	font-size:18px;
+}
+
+.gamebox {
+	display:none;
+	margin:auto;
+	text-align:center;
+}
+
+.gameinfo {
+	font-family:sans-serif;
+	font-weight:bold;
+	font-size:18px	
+}

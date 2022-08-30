@@ -1,0 +1,31 @@
+<!DOCtype html>
+<html>
+	<head>
+		<title>Number guess game</title>
+		<meta charset="utf-8"/>
+		<script src="script.js"></script>
+		<link rel="stylesheet" href="styles.css"/>
+	</head>
+	<body>
+		<div class="container">
+			<h2 class="header">Welcome to number guessing game</h2>
+			<p class="info">You will guess a number between 1-100. Game
+			tells you if you are over or under the number. Try guess with
+			fewest possible tries.</p>
+			<label for="name" class="label">Please enter your name:</label>
+			<input type="text"
+					id="name"
+					name="name"/>
+			<br/>
+			<button onclick="startGame()" id="startbutton">Start</button>
+			<div class="gamebox" id="gamebox">
+				<p class="gameinfo" id="gameinfo">Guess between 1-100. You have guessed 0 times</p>
+				<input type="text"
+						name="guess"
+						id="guess"/>
+				<br/>
+				<button onclick="guess()" id="guessbutton">Guess</button>
+			</div>
+		</div>	
+	</body>
+</html>
