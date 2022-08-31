@@ -40,6 +40,24 @@ app.delete("/api/contacts/:id",function(req,res) {
 	return res.status(200).json({message:"success!!"});
 })
 
+app.put("/api/contacts/:id", function(req,res) {
+	let tempId = parseInt(req.params.id,10);
+	let contact = {
+		id:tempId,
+		firstname:req.body.firstname,
+		lastname:req.body.lastname,
+		email:req.body.email,
+		phone:req.body.phone
+	}
+	for(let i=0;i<database.length;i++) {
+		if(tempId === database[i].id) {
+			database.splice(i,1,contact);
+			return res.status(200).json({message:"success!!"})
+		}
+	}
+	return res.status(404).json({message:"not found"});
+})
+
 app.listen(port);
 
 console.log("Running in port "+port);
