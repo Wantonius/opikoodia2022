@@ -73,8 +73,61 @@ createForm = () => {
 	form.appendChild(submitbutton);
 	form.addEventListener("submit",function(event) {
 		event.preventDefault();
-		console.log("submit");
+		addContact();
 	})
 	
 	anchor.appendChild(form);
 }
+
+addContact = async () => {
+	let firstname = document.getElementById("firstnameinput");
+	let lastname = document.getElementById("lastnameinput");
+	let email = document.getElementById("emailinput");
+	let phone = document.getElementById("phoneinput");
+	let contact = {
+		"firstname":firstname.value,
+		"lastname":lastname.value,
+		"email":email.value,
+		"phone":phone.value
+	}
+	let method = "POST";
+	let url = "/api/contacts/";
+	let request = {
+		method:method,
+		mode:"cors",
+		headers:{"Content-Type":"application/json"},
+		body:JSON.stringify(contact)
+	}
+	let response = await fetch(url,request);
+	if(response.ok) {
+		firstname.value="";
+		lastname.value="";
+		email.value="";
+		phone.value="";
+		//TODO get contact list
+	} else {
+		console.log("Server responded with a status:",response.status);
+	}
+}
+
+getContactList = async () => {
+	let request = {
+		method:"GET",
+		mode:"cors",
+		headers:{"Content-Type":"application/json"}
+	}
+	let response = await fetch("/api/contacts/",request);
+	if(response.ok) {
+		let data = await response.json();
+		populateTable(data);
+	} else {
+		console.log("Server responded with a status:"+response.status);
+	}
+}
+
+
+
+
+
+
+
