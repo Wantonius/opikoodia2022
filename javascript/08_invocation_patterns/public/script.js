@@ -37,4 +37,33 @@ function start() {
 	}
 	
 	person.calculateAge(10);
+	
+	console.log("------------------------");
+	console.log("Constructor invocation pattern");
+	
+	var person2 = function(name) {
+		this.name = name;
+	}
+	
+	person2.prototype.greet = function() {
+		return this.name + "says hi!";
+	}
+	
+	console.log(new person2("Calvin").greet());
+	console.log(person2);
+
+	console.log("-------------------------");
+	console.log("Apply invocation pattern");
+	
+	person2.prototype.waveTo = function(who) {
+		return this.name+" waves to "+who.name;
+	}
+
+	let calvin = new person2("Calvin");
+	let hobbes = new person2("Hobbes");
+	let temp = Object.create({"name":"Temp Object"});
+	
+	console.log(calvin.waveTo.apply(hobbes,[calvin]));
+	console.log(hobbes.waveTo.apply(temp,[calvin]));
+
 }
