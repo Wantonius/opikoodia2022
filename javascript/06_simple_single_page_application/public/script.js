@@ -80,6 +80,8 @@ createForm = () => {
 	anchor.appendChild(form);
 }
 
+//REST API
+
 addContact = async () => {
 	let firstname = document.getElementById("firstnameinput");
 	let lastname = document.getElementById("lastnameinput");
@@ -125,6 +127,22 @@ getContactList = async () => {
 		console.log("Server responded with a status:"+response.status);
 	}
 }
+
+removeContact = async (id) => {
+	let request = {
+		method:"DELETE",
+		mode:"cors",
+		headers:{"Content-Type":"application/json"}
+	}
+	let response = await fetch("/api/contacts/"+id,request);
+	if(response.ok) {
+		getContactList();
+	} else {
+		console.log("Failed to remove contact. Reason:",response.status);
+	}
+}
+
+//CREATE TABLE
 
 populateTable = (data) => {
 	let anchor = document.getElementById("anchor");
@@ -193,7 +211,7 @@ populateTable = (data) => {
 		removeButton.setAttribute("value","Remove");
 		removeButton.setAttribute("name",data[i].id);
 		removeButton.addEventListener("click",function(event) {
-			//TODO removeContact(event.target.name);
+			removeContact(event.target.name);
 		})
 		removeColumn.appendChild(removeButton);
 		
