@@ -95,6 +95,13 @@ addContact = async () => {
 	}
 	let method = "POST";
 	let url = "/api/contacts/";
+	if(mode) {
+		method = "PUT";
+		url = "/api/contacts/"+mode;
+		mode = 0;
+		submitbutton = document.getElementById("submitbutton");
+		submitbutton.value = "Add";
+	}
 	let request = {
 		method:method,
 		mode:"cors",
@@ -140,6 +147,20 @@ removeContact = async (id) => {
 	} else {
 		console.log("Failed to remove contact. Reason:",response.status);
 	}
+}
+
+changeToEditMode = (contact) => {
+	mode = contact.id;
+	let firstname = document.getElementById("firstnameinput");
+	let lastname = document.getElementById("lastnameinput");
+	let email = document.getElementById("emailinput");
+	let phone = document.getElementById("phoneinput");
+	firstname.value = contact.firstname;
+	lastname.value = contact.lastname;
+	email.value = contact.email;
+	phone.value = contact.phone;
+	let submitbutton = document.getElementById("submitbutton");
+	submitbutton.value = "Save";
 }
 
 //CREATE TABLE
@@ -221,7 +242,7 @@ populateTable = (data) => {
 		editButton.setAttribute("type","button");
 		editButton.setAttribute("value","Edit");
 		editButton.addEventListener("click",function(event) {
-			//TODO changeToEditMode(data[i]);
+			changeToEditMode(data[i]);
 		})
 		editColumn.appendChild(editButton);
 		tableRow.appendChild(removeColumn);
