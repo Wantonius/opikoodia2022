@@ -1,0 +1,14 @@
+{
+  "name": "07_closures",
+  "version": "1.0.0",
+  "description": "closures",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "erno",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
