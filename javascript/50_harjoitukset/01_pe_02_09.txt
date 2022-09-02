@@ -1,0 +1,42 @@
+Aloitukseen Javascriptistä:
+https://www.w3schools.com/js/default.asp
+
+http://javascript.info/
+https://exploringjs.com/
+https://2ality.com
+
+Harjoituksia:
+https://www.w3schools.com/js/exercise_js.asp
+
+Esimerkkejä aloittelijoille:
+https://www.w3schools.com/js/js_examples.asp
+
+Referenssinä:
+https://developer.mozilla.org/en-US/docs/Web/JavaScript
+
+Git niille, joille outo (aloita Beginneristä ja siirry Getting startediin):
+https://www.atlassian.com/git/tutorials
+Asenna git omalle koneelle!
+
+Frontend Mastersista:
+Learning Paths ja Beginner. Sieltä itselle sopiva video.
+
+Pitemmälle ehtineet:
+
+Harkat:
+Craps with Javascript. 
+The Library. 
+
+Frontend Masters:
+Voi aloitella jo React polkua tai ottaa esim Javascript the Hard Parts 2 tai Javascript the Recent Parts.
+Jos nekin tuntuu tutuilta, niin funktionaalisen ohjelmoinnin kurssit Functional-light Javascript tai Hardcore functional programming in Javascript v2.
+Löytyvät Javascript learning pathista.
+
+HOX!
+Muistakaa pohtia projektityöideoita!!
+Ensi viikon aikana jokainen lähettää minulle sähköpostiin oman julkisen github-repon osoitteen. Jos on jo joku privarepo, niin tehkää uusi vaikka väliaikaisesti
+kurssia varten.
+
+Bonus: 
+
+Socket.IO reaaliaikaiseen kommunikaatioon:https://socket.io/get-started/chat

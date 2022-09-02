@@ -1,0 +1,31 @@
+Craps game with Javascript
+
+Let's make a craps game using Javascript. In Craps people throw two dice and in the simple version can make to different bets: Pass or Don't Pass.
+Rules for Pass Bets are:
+
+If the first roll is 7 or 11, the bet wins.
+If the first roll is 2, 3 or 12, the bet loses (known as "crapping out").
+If the roll is any other value, it establishes a point. Point value is the number rolled. This is not 
+a points system. You do not calculate points. It is just a point with value of the first throw. Subsequently
+you try to roll either a 7 or the value of the point. You reroll until a 7 or the point value. Point value
+DOES NOT change after the first throw.
+If, with a point established, that point is rolled again before a 7, the bet wins.
+If, with a point established, a 7 is rolled before the point is rolled again ("seven out"), the bet loses.
+
+The pass line bet pays even money. 
+
+Don't pass bet rules:
+If the first roll is 2 or 3, the bet wins.
+If the first roll is 7 or 11, the bet loses.
+If the come-out roll is 12, you get your money back
+If the roll is any other value, it establishes a point.
+If, with a point established, a 7 is rolled before the point is rolled again ("seven out"), the bet wins.
+If, with a point established, that point is rolled again before a 7, the bet loses.
+
+Bet cannot be changed
+before win or lose however long the game takes. You need to save the value of the first throw (if neither win or lose) for the point to be compared with subsequent
+throws. 
+
+Make informative texts during betting. Make a reset button to reset game.
+
+USE ONLY ANCHOR IN HTML AND DO REST BY JAVASCRIPT!
