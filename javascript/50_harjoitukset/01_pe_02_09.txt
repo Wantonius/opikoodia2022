@@ -34,8 +34,7 @@ Löytyvät Javascript learning pathista.
 
 HOX!
 Muistakaa pohtia projektityöideoita!!
-Ensi viikon aikana jokainen lähettää minulle sähköpostiin oman julkisen github-repon osoitteen. Jos on jo joku privarepo, niin tehkää uusi vaikka väliaikaisesti
-kurssia varten.
+Ensi viikon aikana jokainen lähettää minulle sähköpostiin oman julkisen github-repon osoitteen. Jos on jo joku privarepo, niin tehkää uusi vaikka väliaikaisesti kurssia varten.
 
 Bonus: 
 

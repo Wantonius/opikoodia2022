@@ -13,10 +13,10 @@ Library consists of two distinct REST APIs using the same database. Data will be
 
 First API will be for the Library Admin. This is a normal API like we did in the simple single page application:
 
-GET /api/admin/books:
+GET /api/admin/books
 	gets the list of all books
 	
-POST /api/admin/books:
+POST /api/admin/books
 	adds a new book. Needs body.
 	
 DELETE /api/admin/books/:id
