@@ -4,27 +4,49 @@ const ContactList = (props) => {
 	
 	const [state,setState] = useState({
 		removeIndex:-1,
-		editIndex:-1
+		editIndex:-1,
+		firstname:"",
+		lastname:"",
+		email:"",
+		phone:""
 	});
 	
 	const changeToRemoveMode = (index) => {
 		setState({
+			...state,
 			removeIndex:index,
 			editIndex:-1
 		})
 	}
 
-	const changeToEditMode = (index) => {
+	const changeToEditMode = (index,contact) => {
 		setState({
+			firstname:contact.firstname,
+			lastname:contact.lastname,
+			email:contact.email,
+			phone:contact.phone,
 			removeIndex:-1,
 			editIndex:index
 		})
 	}
-
+	
+	const onChange = (event) => {
+		setState((state) => {
+			return {
+				...state,
+				[event.target.name]:event.target.value
+			}
+		})
+	}
+	
 	const cancel = () => {
 		setState({
 			removeIndex:-1,
-			editIndex:-1
+			editIndex:-1,
+			firstname:"",
+			lastname:"",
+			email:"",
+			phone:""
 		})
 	}
 	
@@ -33,7 +55,42 @@ const ContactList = (props) => {
 		cancel();
 	}
 
+	const editContact = (contact) => {
+		props.editContact(contact);
+		cancel();
+	}
+
 	let contacts = props.list.map((contact,index) => {
+		if(state.editIndex === index) {
+			/*setState({
+				...state,
+	
+			})*/
+			return(
+				<tr key={contact.id}>
+					<td><input type="text"
+								name="firstname"
+								id="firstname"
+								onChange={onChange}
+								value={state.firstname}/></td>
+					<td><input type="text"
+								name="lastname"
+								id="lastname"
+								onChange={onChange}
+								value={state.lastname}/></td>				
+					<td><input type="email"
+								name="email"
+								id="email"
+								onChange={onChange}
+								value={state.email}/></td>
+					<td><input type="tel"
+								name="phone"
+								id="phone"
+								onChange={onChange}
+								value={state.phone}/></td>
+				</tr>
+			)
+		}
 		if(state.removeIndex === index) {
 			return ( <tr key={contact.id}>
 				<td>{contact.firstname}</td>
@@ -52,7 +109,7 @@ const ContactList = (props) => {
 				<td>{contact.email}</td>
 				<td>{contact.phone}</td>
 				<td><button onClick={() => changeToRemoveMode(index)}>Remove</button></td>
-				<td><button onClick={() => changeToEditMode(index)}>Edit</button></td>
+				<td><button onClick={() => changeToEditMode(index,contact)}>Edit</button></td>
 			</tr>
 		)
 	})
