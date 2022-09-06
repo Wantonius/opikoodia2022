@@ -34,7 +34,7 @@ function App() {
 		<div className="App">
 			<ContactForm addContact={addContact}/>
 			<hr/>
-			<ContactList list={state.list}/>
+			<ContactList list={state.list} removeContact={removeContact}/>
 		</div>
 	);
 }
