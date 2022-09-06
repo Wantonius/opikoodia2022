@@ -1,6 +1,7 @@
 import './App.css';
 import {useState} from 'react';
 import ContactForm from './components/ContactForm';
+import ContactList from './components/ContactList';
 
 function App() {
 	
@@ -32,6 +33,8 @@ function App() {
 	return (
 		<div className="App">
 			<ContactForm addContact={addContact}/>
+			<hr/>
+			<ContactList list={state.list}/>
 		</div>
 	);
 }
