@@ -55,17 +55,20 @@ const ContactList = (props) => {
 		cancel();
 	}
 
-	const editContact = (contact) => {
+	const editContact = (id) => {
+		let contact = {
+			id:id,
+			firstname:state.firstname,
+			lastname:state.lastname,
+			email:state.email,
+			phone:state.phone
+		}
 		props.editContact(contact);
 		cancel();
 	}
 
 	let contacts = props.list.map((contact,index) => {
 		if(state.editIndex === index) {
-			/*setState({
-				...state,
-	
-			})*/
 			return(
 				<tr key={contact.id}>
 					<td><input type="text"
@@ -88,6 +91,8 @@ const ContactList = (props) => {
 								id="phone"
 								onChange={onChange}
 								value={state.phone}/></td>
+					<td><button onClick={() => editContact(contact.id)}>Save</button></td>
+					<td><button onClick={() => cancel()}>Cancel</button></td>
 				</tr>
 			)
 		}

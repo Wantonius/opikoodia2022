@@ -30,11 +30,25 @@ function App() {
 		})
 	}
 	
+	const editContact = (contact) => {
+		for(let i=0;i<state.list.length;i++) {
+			if(state.list[i].id === contact.id) {
+				let tempList = state.list.slice();
+				tempList.splice(i,1,contact);
+				setState({
+					...state,
+					list:tempList
+				})
+			}
+		}
+	}
+	
 	return (
 		<div className="App">
 			<ContactForm addContact={addContact}/>
 			<hr/>
-			<ContactList list={state.list} removeContact={removeContact}/>
+			<ContactList list={state.list} removeContact={removeContact}
+				editContact={editContact}/>
 		</div>
 	);
 }
