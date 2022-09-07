@@ -18,9 +18,9 @@ const StartPage = (props) => {
 		props.startGame(state.playername);
 	}
 	
-	let toplist = props.toplist.map((item) => {
+	let toplist = props.toplist.map((item,index) => {
 		return(
-			<li>Name:{item.playername} Result:{item.result}</li>
+			<li key={index}>Name:{item.playername} Result:{item.result}</li>
 		)
 	})
 	
