@@ -36,6 +36,11 @@ const StartPage = (props) => {
 					value={state.playername}/>
 			<br/>
 			<button onClick={startGame}>Start Game</button>
+			<hr/>
+			<h2>Best guessers</h2>
+			<ul style={{listStyleType:"decimal"}}>
+				{toplist}
+			</ul>
 		</div>
 	)
 }
