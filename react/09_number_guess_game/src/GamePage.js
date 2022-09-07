@@ -51,7 +51,45 @@ const GamePage = (props) => {
 			})
 			return;
 		}
+		let temp = parseInt(state.currentGuess);
+		if(temp === props.target_number) {
+			props.resetGame({
+				playername:props.player_name,
+				result:state.numberOfGuesses
+			})
+			setState({
+				currentGuess:0,
+				numberOfGuesses:0,
+				maximumGuess:100,
+				minimumGuess:1,
+				message:"Guess between 1 and 100"
+			})
+		}
 	}
+	
+	const onChange = (event) => {
+		setState((state) => {
+			return {
+				...state,
+				[event.target.name]:event.target.value
+			}
+		})
+	}
+	
+	return(
+	<div>
+		<h2>Game Page</h2>
+		<p>{state.message}</p>
+		<label htmlFor="guess">Guess a number:</label>
+		<input type="number"
+				id="guess"
+				name="currentGuess"
+				onChange={onChange}
+				value={state.currentGuess}/>
+		<br/>
+		<button onClick={guess}>Guess</button>
+	</div>
+	)
 }
 
 export default GamePage;

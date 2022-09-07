@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {Routes,Route,useNavigate} from 'react-router-dom';
 import './App.css';
 import StartPage from './StartPage';
+import GamePage from './GamePage';
 
 function App() {
 	
@@ -25,10 +26,11 @@ function App() {
 				player_name:name
 			}
 		})
-		//TODO: navigate to game page
+		navigate("/game");
 	}
 	
 	const resetGame = (win) => {
+		alert("Congrats "+win.playername+"! You win with "+win.result+" guesses")
 		setState((state) => {
 			return {
 				target_number:0,
@@ -36,7 +38,7 @@ function App() {
 				top_list:state.top_list.concat(win)
 			}
 		})
-		//TODO: navigate to start page
+		navigate("/");
 	}
 	
 	return (
@@ -44,6 +46,8 @@ function App() {
 			<Routes>
 				<Route exact path="/" element={<StartPage 
 						startGame={startGame} toplist={state.top_list}/>}/>
+				<Route path="/game" element={<GamePage 
+					player_name={state.player_name} target_number={state.target_number} resetGame={resetGame}/>}/>
 			</Routes>
 		</div>
 	);
