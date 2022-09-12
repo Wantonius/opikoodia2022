@@ -9,7 +9,7 @@ const ShoppingForm = (props) => {
 	})
 	
 	const onChange = (event) => {
-		setState((state) = > {
+		setState((state) => {
 			return {
 				...state,
 				[event.target.name]:event.target.value
@@ -32,7 +32,7 @@ const ShoppingForm = (props) => {
 	return(
 		<div style={{
 			backgroundColor:"lightgreen",
-			width:"60%",
+			width:"40%",
 			margin:"auto"
 		}}>
 			<form onSubmit={onSubmit} className="mb-3">
