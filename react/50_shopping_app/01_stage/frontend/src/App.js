@@ -25,7 +25,15 @@ function App() {
 			if(response.ok) {
 				switch(urlRequest.action) {
 					case "additem":
-						//TODO: get list
+						getList();
+						return;
+					case "getlist":
+						let data = await response.json();
+						if(data) {
+							setState({
+								list:data
+							})
+						}
 						return;
 					default:
 						return;
@@ -33,6 +41,9 @@ function App() {
 			} else {
 				switch(urlRequest.action) {
 					case "additem":
+						console.log("Server responded with a status",response.status);
+						return;
+					case "getlist":
 						console.log("Server responded with a status",response.status);
 						return;
 					default:
@@ -53,6 +64,17 @@ function App() {
 				body:JSON.stringify(item)
 			},
 			action:"additem"
+		})
+	}
+	
+	const getList = () => {
+		setUrlRequest({
+			url:"/api/shopping",
+			request:{
+				method:"GET",
+				headers:{"Content-Type":"application/json"}
+			},
+			action:"getlist"
 		})
 	}
 	
