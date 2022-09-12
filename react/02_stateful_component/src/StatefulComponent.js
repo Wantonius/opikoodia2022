@@ -25,12 +25,8 @@ const StatefulComponent = (props) => {
 			}
 		})
 		
-		return () => clear();
-	},[])
-
-	const clear = () => {
-		clearInterval(state.timer);
-	}
+		return () => clearInterval(interval);
+	},[]);
 	
 	return(
 		<div>
