@@ -1,10 +1,45 @@
-
+import {useState} from 'react';
 import Row from './Row';
+import RemoveRow from './RemoveRow';
 
 const ShoppingList = (props) => {
-
-	let items = props.list.map((item) => {
-		return <Row key={item.id} item={item}/>
+	
+	const [state,setState] = useState({
+		removeIndex:-1,
+		editIndex:-1
+	})
+	
+	const changeMode = (mode,index) => {
+		if(mode === "remove") {
+			setState({
+				removeIndex:index,
+				editIndex:-1
+			})
+		}
+		if(mode === "edit") {
+			setState({
+				removeIndex:-1,
+				editIndex:index
+			})
+		}
+		if(mode === "cancel") {
+			setState({
+				removeIndex:-1,
+				editIndex:-1
+			})
+		}
+	}
+	
+	const removeItem = (id) => {
+		props.removeItem(id);
+		changeMode("cancel");
+	}
+	
+	let items = props.list.map((item,index) => {
+		if(state.removeIndex === index) {
+			return <RemoveRow key={item.id} item={item} changeMode={changeMode} removeItem={removeItem}/>
+		}
+		return <Row key={item.id} item={item} index={index} changeMode={changeMode}/>
 	})
 	
 	return(
