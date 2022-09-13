@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import Row from './Row';
 import RemoveRow from './RemoveRow';
+import EditRow from './EditRow';
 
 const ShoppingList = (props) => {
 	
@@ -35,7 +36,15 @@ const ShoppingList = (props) => {
 		changeMode("cancel");
 	}
 	
+	const editItem = (item) => {
+		props.editItem(item);
+		changeMode("cancel");
+	}
+	
 	let items = props.list.map((item,index) => {
+		if(state.editIndex === index) {
+			return <EditRow key={item.id} item={item} editItem={editItem} changeMode={changeMode}/>
+		}		
 		if(state.removeIndex === index) {
 			return <RemoveRow key={item.id} item={item} changeMode={changeMode} removeItem={removeItem}/>
 		}

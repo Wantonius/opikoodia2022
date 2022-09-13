@@ -6,6 +6,7 @@ import ShoppingList from './components/ShoppingList';
 import Navbar from './components/Navbar';
 
 function App() {
+
 	
 	const [state,setState] = useState({
 		list:[]
@@ -40,6 +41,9 @@ function App() {
 					case "removeitem":
 						getList();
 						return;
+					case "edititem":
+						getList();
+						return;
 					default:
 						return;
 				}
@@ -52,6 +56,9 @@ function App() {
 						console.log("Server responded with a status",response.status);
 						return;
 					case "removeitem":
+						console.log("Server responded with a status",response.status);
+						return;
+					case "edititem":
 						console.log("Server responded with a status",response.status);
 						return;
 					default:
@@ -97,12 +104,24 @@ function App() {
 		})
 	}
 	
+	const editItem = (item) => {
+		setUrlRequest({
+			url:"/api/shopping/"+item.id,
+			request:{
+				method:"PUT",
+				headers:{"Content-Type":"application/json"},
+				body:JSON.stringify(item)
+			},
+			action:"edititem"
+		})
+	}
+	
 	return (
 		<div className="App">
 			<Navbar/>
 			<hr/>
 			<Routes>
-				<Route exact path="/" element={<ShoppingList removeItem={removeItem} list={state.list}/>}/>
+				<Route exact path="/" element={<ShoppingList editItem={editItem} removeItem={removeItem} list={state.list}/>}/>
 				<Route path="/form" element={<ShoppingForm addItem={addItem}/>}/>
 			</Routes>
 		</div>
