@@ -4,12 +4,17 @@ import {Routes,Route} from 'react-router-dom';
 import ShoppingForm from './components/ShoppingForm';
 import ShoppingList from './components/ShoppingList';
 import Navbar from './components/Navbar';
+import LoginPage from './components/LoginPage';
 
 function App() {
 
 	
 	const [state,setState] = useState({
-		list:[]
+		list:[],
+		token:"",
+		isLogged:false,
+		loading:false,
+		error:""
 	})
 	
 	const [urlRequest,setUrlRequest] = useState({
@@ -17,6 +22,39 @@ function App() {
 		request:{},
 		action:""
 	})
+	
+	//STATE FUNCTIONS
+	
+	const setLoading = (loading) => {
+		setState((state) => {
+			return {
+				...state,
+				loading:loading,
+				error:""
+			}
+		})
+	}
+	
+	const setError = (error) => {
+		setState((state) => {
+			return {
+				...state,
+				error:error
+			}
+		})
+	}
+	
+	const cleanState = () => {
+		let state = {
+			list:[],
+			isLogged:false,
+			token:"",
+			loading:false,
+			error:""
+		}
+		saveToStorage(state);
+		setState(state);
+	}
 	
 	useEffect(() => {
 		
