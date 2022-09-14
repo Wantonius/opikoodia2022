@@ -37,10 +37,12 @@ function App() {
 	
 	const setError = (error) => {
 		setState((state) => {
-			return {
+			let tempState = {
 				...state,
 				error:error
 			}
+			saveToStorage(tempState);
+			return tempState;
 		})
 	}
 	
@@ -55,6 +57,24 @@ function App() {
 		saveToStorage(state);
 		setState(state);
 	}
+	
+	//STORAGE FUNCTIONS
+	
+	const saveToStorage = (state) => {
+		sessionStorage.setItem("state",JSON.stringify(state));
+	}
+	
+	useEffect(() => {
+		if(sessionStorage.getItem("state")) {
+			let state = JSON.parse(sessionStorage.getItem("state"));
+			setState(state);
+			if(state.isLogged) {
+				getList(state.token);
+			}
+		}
+	},[])
+	
+	//FETCH
 	
 	useEffect(() => {
 		
@@ -107,6 +127,33 @@ function App() {
 		
 		fetchData();
 	},[urlRequest]);
+	
+	//LOGIN API
+	
+	const register = (user) => {
+		setUrlRequest({
+			url:"/register",
+			request:{
+				method:"POST",
+				headers:{"Content-Type":"application/json"},
+				body:JSON.stringify(user)
+			},
+			action:"register"
+		})
+	}
+
+	const login = (user) => {
+		setUrlRequest({
+			url:"/login",
+			request:{
+				method:"POST",
+				headers:{"Content-Type":"application/json"},
+				body:JSON.stringify(user)
+			},
+			action:"login"
+		})
+	}	
+	//REST API
 	
 	const addItem = (item) => {
 		setUrlRequest({
