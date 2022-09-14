@@ -17,8 +17,8 @@ function App() {
 		return word.length;
 	}
 	
-	const wordLength = computeWordLength(word);
-	
+	//const wordLength = computeWordLength(word);
+	const wordLength = useMemo(() => computeWordLength(word),[word]);
 	return (
 		<div className="App">
 			<h3>Compute the length of the word {word}</h3>
