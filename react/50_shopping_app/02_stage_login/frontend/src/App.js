@@ -82,7 +82,9 @@ function App() {
 			if(!urlRequest.url) {
 				return;
 			}
+			setLoading(true);
 			let response = await fetch(urlRequest.url,urlRequest.request);
+			setLoading(false);
 			if(response.ok) {
 				switch(urlRequest.action) {
 					case "additem":
@@ -91,8 +93,13 @@ function App() {
 					case "getlist":
 						let data = await response.json();
 						if(data) {
-							setState({
-								list:data
+							setState((state) => {
+								let tempState = {
+									...state,
+									list:data
+								}
+								saveToStorage(tempState);
+								return tempState;
 							})
 						}
 						return;
@@ -101,6 +108,24 @@ function App() {
 						return;
 					case "edititem":
 						getList();
+						return;
+					case "register":
+						setError("You have succesfully registered!");
+						return;
+					case "login":
+						let loginData = await response.json();
+						if(loginData) {
+							setState((state) => {
+								let tempState = {
+									...state,
+									isLogged:true,
+									token:loginData.token
+								}
+								saveToStorage(tempState);
+								return tempState;
+							});
+							getList(loginData.token);
+						}
 						return;
 					default:
 						return;
@@ -153,6 +178,19 @@ function App() {
 			action:"login"
 		})
 	}	
+	
+	const logout = () => {
+		setUrlRequest({
+			url:"/logout",
+			request:{
+				method:"POST",
+				headers:{"Content-Type":"application/json",
+							token:state.token}
+			},
+			action:"logout"
+		})
+	}
+	
 	//REST API
 	
 	const addItem = (item) => {
@@ -160,19 +198,25 @@ function App() {
 			url:"/api/shopping",
 			request:{
 				method:"POST",
-				headers:{"Content-Type":"application/json"},
+				headers:{"Content-Type":"application/json",
+							token:state.token},
 				body:JSON.stringify(item)
 			},
 			action:"additem"
 		})
 	}
 	
-	const getList = () => {
+	const getList = (token) => {
+		let tempToken = state.token;
+		if(token) {
+			tempToken = token
+		}
 		setUrlRequest({
 			url:"/api/shopping",
 			request:{
 				method:"GET",
-				headers:{"Content-Type":"application/json"}
+				headers:{"Content-Type":"application/json",
+						token:tempToken}
 			},
 			action:"getlist"
 		})
@@ -183,7 +227,8 @@ function App() {
 			url:"/api/shopping/"+id,
 			request:{
 				method:"DELETE",
-				headers:{"Content-Type":"application/json"}
+				headers:{"Content-Type":"application/json",
+						token:state.token}
 			},
 			action:"removeitem"
 		})
@@ -194,7 +239,8 @@ function App() {
 			url:"/api/shopping/"+item.id,
 			request:{
 				method:"PUT",
-				headers:{"Content-Type":"application/json"},
+				headers:{"Content-Type":"application/json",
+						token:state.token},
 				body:JSON.stringify(item)
 			},
 			action:"edititem"
