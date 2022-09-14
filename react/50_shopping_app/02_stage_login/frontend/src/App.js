@@ -1,6 +1,6 @@
 import {useState,useEffect} from 'react';
 import './App.css';
-import {Routes,Route} from 'react-router-dom';
+import {Routes,Route,Navigate} from 'react-router-dom';
 import ShoppingForm from './components/ShoppingForm';
 import ShoppingList from './components/ShoppingList';
 import Navbar from './components/Navbar';
@@ -127,22 +127,43 @@ function App() {
 							getList(loginData.token);
 						}
 						return;
+					case "logout":
+						cleanState();
+						return;
 					default:
 						return;
 				}
 			} else {
+				if(response.status === 403) {
+					cleanState();
+					setError("Your session has expired. Logging you out!");
+					return;
+				}
 				switch(urlRequest.action) {
 					case "additem":
-						console.log("Server responded with a status",response.status);
+						setError("Adding new item failed. Server responded with "+response.status+" "+response.statusText);
 						return;
 					case "getlist":
-						console.log("Server responded with a status",response.status);
+						setError("Fetching shopping list failed. Server responded with "+response.status+" "+response.statusText);
 						return;
 					case "removeitem":
-						console.log("Server responded with a status",response.status);
+						setError("Removing item failed. Server responded with "+response.status+" "+response.statusText);
 						return;
 					case "edititem":
-						console.log("Server responded with a status",response.status);
+						setError("Editing an item failed. Server responded with "+response.status+" "+response.statusText);
+						return;
+					case "register":
+						if(response.status === 409) {
+							setError("Username is already in use");
+						} else {
+							setError("Registering new user failed. Server responded with "+response.status+" "+response.statusText);
+						}
+						return;
+					case "login":
+						setError("Login failed. Server responded with "+response.status+" "+response.statusText);
+						return;
+					case "logout":
+						cleanState();
 						return;
 					default:
 						return;
@@ -247,14 +268,32 @@ function App() {
 		})
 	}
 	
+	//CONDITIONAL RENDERING
+	
+	let messageArea = <h4> </h4>
+	if(state.loading) {
+		messageArea = <h4>Loading ...</h4>
+	}
+	if(state.error) {
+		messageArea = <h4>{state.error}</h4>
+	}
+	let tempRender = <Routes>
+						<Route exact path="/" element={<LoginPage setError={setError} login={login} register={register}/>}/>
+						<Route path="*" element={<Navigate to="/"/>}/>
+					 </Routes>
+	if(state.isLogged) {
+		tempRender = <Routes>
+						<Route exact path="/" element={<ShoppingList editItem={editItem} removeItem={removeItem} list={state.list}/>}/>
+						<Route path="/form" element={<ShoppingForm addItem={addItem}/>}/>
+						<Route path="*" element={<Navigate to="/"/>}/>
+					</Routes>
+	}
 	return (
 		<div className="App">
-			<Navbar/>
+			<Navbar isLogged={state.isLogged} logout={logout}/>
+			{messageArea}
 			<hr/>
-			<Routes>
-				<Route exact path="/" element={<ShoppingList editItem={editItem} removeItem={removeItem} list={state.list}/>}/>
-				<Route path="/form" element={<ShoppingForm addItem={addItem}/>}/>
-			</Routes>
+			{tempRender}
 		</div>
 	);
 }
