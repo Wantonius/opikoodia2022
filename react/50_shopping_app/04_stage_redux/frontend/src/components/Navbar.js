@@ -1,9 +1,10 @@
 import {Link} from 'react-router-dom';
-import {useSelector} from 'react-redux';
-
+import {useSelector,useDispatch} from 'react-redux';
+import {logout} from '../actions/loginActions';
 const Navbar = (props) => {
 	
 	const state = useSelector(state => state);
+	const dispatch = useDispatch();
 	
 	let links = <ul className="navbar-nav"></ul>
 	if(state.isLogged) {
@@ -15,7 +16,7 @@ const Navbar = (props) => {
 						<Link to="/form">Add new item</Link>
 					</li>
 					<li className="nav-item" style={{marginLeft:10}}>
-						<Link to="/" onClick={props.logout}>Logout</Link>
+						<Link to="/" onClick={() => dispatch(logout(state.token))}>Logout</Link>
 					</li>
 			</ul>
 	}

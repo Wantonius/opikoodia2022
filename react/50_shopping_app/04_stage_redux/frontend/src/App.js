@@ -176,43 +176,7 @@ function App() {
 		fetchData();
 	},[urlRequest]);
 	
-	//LOGIN API
-	
-	const register = (user) => {
-		setUrlRequest({
-			url:"/register",
-			request:{
-				method:"POST",
-				headers:{"Content-Type":"application/json"},
-				body:JSON.stringify(user)
-			},
-			action:"register"
-		})
-	}
 
-	const login = (user) => {
-		setUrlRequest({
-			url:"/login",
-			request:{
-				method:"POST",
-				headers:{"Content-Type":"application/json"},
-				body:JSON.stringify(user)
-			},
-			action:"login"
-		})
-	}	
-	
-	const logout = () => {
-		setUrlRequest({
-			url:"/logout",
-			request:{
-				method:"POST",
-				headers:{"Content-Type":"application/json",
-							token:appState.token}
-			},
-			action:"logout"
-		})
-	}
 	
 	//REST API
 	
@@ -292,7 +256,7 @@ function App() {
 	}
 	return (
 		<div className="App">
-			<Navbar isLogged={state.isLogged} logout={logout}/>
+			<Navbar />
 			{messageArea}
 			<hr/>
 			{tempRender}
