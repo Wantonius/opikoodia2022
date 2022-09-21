@@ -208,7 +208,7 @@ function App() {
 			request:{
 				method:"POST",
 				headers:{"Content-Type":"application/json",
-							token:state.token}
+							token:appState.token}
 			},
 			action:"logout"
 		})
@@ -222,7 +222,7 @@ function App() {
 			request:{
 				method:"POST",
 				headers:{"Content-Type":"application/json",
-							token:state.token},
+							token:appState.token},
 				body:JSON.stringify(item)
 			},
 			action:"additem"
@@ -230,7 +230,7 @@ function App() {
 	}
 	
 	const getList = (token) => {
-		let tempToken = state.token;
+		let tempToken = appState.token;
 		if(token) {
 			tempToken = token
 		}
@@ -251,7 +251,7 @@ function App() {
 			request:{
 				method:"DELETE",
 				headers:{"Content-Type":"application/json",
-						token:state.token}
+						token:appState.token}
 			},
 			action:"removeitem"
 		})
@@ -263,7 +263,7 @@ function App() {
 			request:{
 				method:"PUT",
 				headers:{"Content-Type":"application/json",
-						token:state.token},
+						token:appState.token},
 				body:JSON.stringify(item)
 			},
 			action:"edititem"
@@ -280,10 +280,10 @@ function App() {
 		messageArea = <h4>{appState.error}</h4>
 	}
 	let tempRender = <Routes>
-						<Route exact path="/" element={<LoginPage setError={setError} login={login} register={register}/>}/>
+						<Route exact path="/" element={<LoginPage/>}/>
 						<Route path="*" element={<Navigate to="/"/>}/>
 					 </Routes>
-	if(state.isLogged) {
+	if(appState.isLogged) {
 		tempRender = <Routes>
 						<Route exact path="/" element={<ShoppingList editItem={editItem} removeItem={removeItem} list={state.list}/>}/>
 						<Route path="/form" element={<ShoppingForm addItem={addItem}/>}/>

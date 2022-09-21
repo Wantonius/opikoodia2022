@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {register,registerFailed} from '../actions/loginActions';
+import {register,registerFailed,login} from '../actions/loginActions';
 
 const LoginPage = (props) => {
 	
@@ -32,7 +32,7 @@ const LoginPage = (props) => {
 		if(event.target.name === "register") {
 			dispatch(register(user));
 		} else {
-			props.login(user);
+			dispatch(login(user));
 		}
 	}
 	
