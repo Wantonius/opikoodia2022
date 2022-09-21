@@ -5,9 +5,11 @@ import ShoppingForm from './components/ShoppingForm';
 import ShoppingList from './components/ShoppingList';
 import Navbar from './components/Navbar';
 import LoginPage from './components/LoginPage';
+import {useSelector} from 'react-redux';
 
 function App() {
 
+	const appState = useSelector(state => state);
 	
 	const [state,setState] = useState({
 		list:[],
@@ -271,11 +273,11 @@ function App() {
 	//CONDITIONAL RENDERING
 	
 	let messageArea = <h4> </h4>
-	if(state.loading) {
+	if(appState.loading) {
 		messageArea = <h4>Loading ...</h4>
 	}
-	if(state.error) {
-		messageArea = <h4>{state.error}</h4>
+	if(appState.error) {
+		messageArea = <h4>{appState.error}</h4>
 	}
 	let tempRender = <Routes>
 						<Route exact path="/" element={<LoginPage setError={setError} login={login} register={register}/>}/>

@@ -1,4 +1,6 @@
 import {useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {register,registerFailed} from '../actions/loginActions';
 
 const LoginPage = (props) => {
 	
@@ -6,6 +8,8 @@ const LoginPage = (props) => {
 		username:"",
 		password:""
 	})
+	
+	const dispatch = useDispatch();
 	
 	const onChange = (event) => {
 		setState((state) => {
@@ -19,14 +23,14 @@ const LoginPage = (props) => {
 	const onSubmit = (event) => {
 		event.preventDefault();
 		if(state.username.length < 4 || state.password.length < 8) {
-			props.setError("Username must be atleast four characters and password eight characters long");
+			dispatch(registerFailed("Username must be atleast four characters and password eight characters long"));
 			return;
 		}
 		let user = {
 			...state
 		}
 		if(event.target.name === "register") {
-			props.register(user);
+			dispatch(register(user));
 		} else {
 			props.login(user);
 		}

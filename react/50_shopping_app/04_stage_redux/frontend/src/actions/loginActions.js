@@ -10,5 +10,54 @@ export const CLEAR_STATE = "CLEAR_STATE";
 
 //ASYNC ACTIONS
 
+export const register = (user) => {
+	return async (dispatch) => {
+		let request = {
+			method:"POST",
+			headers:{"Content-Type":"application/json"},
+			body:JSON.stringify(user)
+		}
+		dispatch(loading());
+		let response = await fetch("/register",request);
+		if(!response) {
+			dispatch(registerFailed("There was an error with the server connection. Register failed."));
+			return;
+		}
+		if(response.ok) {
+			dispatch(registerSuccess());
+		} else {
+			if(response.status === 409) {
+				dispatch(registerFailed("Username already in use"));
+			} else {
+				dispatch(registerFailed("Register failed. Server responded with a status "+response.status+" "+response.statusText));
+			}
+		}
+	}
+}
 
 //ACTION CREATORS
+
+export const loading = () => {
+	return {
+		type:LOADING
+	}
+}
+
+export const stopLoading = () => {
+	return {
+		type:STOP_LOADING
+	}
+}
+
+const registerSuccess = () => {
+	return {
+		type:REGISTER_SUCCESS
+	}
+}
+
+export const registerFailed = (error) => {
+	return {
+		type:REGISTER_FAILED,
+		error:error
+	}
+}
