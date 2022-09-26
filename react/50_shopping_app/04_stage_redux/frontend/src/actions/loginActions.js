@@ -1,3 +1,5 @@
+import {getList} from './shoppingActions';
+
 export const LOADING = "LOADING";
 export const STOP_LOADING = "STOP_LOADING";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
@@ -55,6 +57,7 @@ export const login = (user) => {
 				return;
 			}
 			dispatch(loginSuccess(data.token));
+			dispatch(getList(data.token));
 		} else {
 			dispatch(loginFailed("Login failed. Server responded with a status "+response.status+" "+response.statusText));
 		}

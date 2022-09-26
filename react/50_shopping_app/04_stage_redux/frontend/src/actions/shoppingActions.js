@@ -45,6 +45,37 @@ export const getList = (token) => {
 	}
 }
 
+export const addItem = (token,item) => {
+	return async (dispatch) => {
+		let request = {
+			method:"POST",
+			headers:{
+				"Content-Type":"application/json",
+				"token":token
+			},
+			body:JSON.stringify(item)
+		}
+		dispatch(loading());
+		let response = await fetch("/api/shopping",request);
+		dispatch(stopLoading());
+		if(!response) {
+			dispatch(addItemFailed("There was an error with the connection. Adding new item failed."))
+			return;
+		} 
+		if(response.ok) {
+			dispatch(addItemSuccess());
+			dispatch(getList(token));
+		} else {
+			if(response.status === 403) {
+				dispatch(clearState());
+				dispatch(addItemFailed("Your session has expired. Logging you out!"))
+			} else {
+				dispatch(addItemFailed("Adding new item failed. Server responded with a status "+response.status+" "+response.statusText));
+			}
+		}
+	}
+}
+
 //Action Creators
 
 const fetchListSuccess = (list) => {

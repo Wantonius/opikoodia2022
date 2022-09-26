@@ -240,6 +240,9 @@ function App() {
 	if(appState.login.loading) {
 		messageArea = <h4>Loading ...</h4>
 	}
+	if(appState.shopping.error) {
+		messageArea = <h4>{appState.shopping.error}</h4>
+	}
 	if(appState.login.error) {
 		messageArea = <h4>{appState.login.error}</h4>
 	}
