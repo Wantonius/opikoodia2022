@@ -1,4 +1,3 @@
-import {useState,useEffect} from 'react';
 import './App.css';
 import {Routes,Route,Navigate} from 'react-router-dom';
 import ShoppingForm from './components/ShoppingForm';
