@@ -21,7 +21,7 @@ import {CLEAR_STATE} from '../actions/loginActions';
 
 const getInitialState = () => {
 	if(sessionStorage.getItem("shoppingstate")) {
-		let state = JSON.parse(sessionStorage("shoppingstate"));
+		let state = JSON.parse(sessionStorage.getItem("shoppingstate"));
 		return state
 	} else {
 		return {
