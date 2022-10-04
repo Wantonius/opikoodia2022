@@ -7,6 +7,7 @@ import {createStore,applyMiddleware,Store,AnyAction,combineReducers} from 'redux
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import {AppState} from './types/states';
+import {BrowserRouter} from 'react-router-dom';
 import loginReducer from './reducers/loginReducer';
 import shoppingReducer from './reducers/shoppingReducer';
 
@@ -22,9 +23,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
+  <BrowserRouter>
 	<Provider store={store}>
 	<App />
 	</Provider>
+  </BrowserRouter>
   </React.StrictMode>
 );
 
