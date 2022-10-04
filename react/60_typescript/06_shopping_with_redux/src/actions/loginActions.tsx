@@ -40,5 +40,85 @@ export const logout = (token:string) => {
 }
 
 const handleLogin = async (request:Request,act:string,dispatch:ThunkDispatch<any,any,AnyAction>) => {
-	
+	dispatch({
+		type:actionConstants.LOADING
+	})
+	const response = await fetch(request);
+	if(!response) {
+		dispatch({
+			type:actionConstants.CLEAR_STATE
+		})
+		dispatch({
+			type:actionConstants.LOGOUT_FAILED,
+			error:"There was an error with the connection to the server"
+		})
+		return;
+	}
+	if(response.ok) {
+		switch(act) {
+			case "register":
+				dispatch({
+					type:actionConstants.REGISTER_SUCCESS
+				})
+				return;
+			case "login":
+				const temp = await response.json()
+				if(!temp) {
+					dispatch({
+						type:actionConstants.LOGIN_FAILED,
+						error:"Failed to parse login information"
+					})
+					return;
+				}
+				let data = temp as Token;
+				dispatch({
+					type:actionConstants.LOGIN_SUCCESS,
+					token:data.token
+				})
+				return;
+			case "logout":
+				dispatch({
+					type:actionConstants.LOGOUT_SUCCESS
+				})
+				dispatch({
+					type:actionConstants.CLEAR_STATE
+				})
+				return;
+			default:
+				return;
+		}
+	} else {
+		switch(act) {
+			case "register":
+				if(response.status === 409) {
+					dispatch({
+						type:actionConstants.REGISTER_FAILED,
+						error:"Username already in use"
+					})
+				} else {
+					dispatch({
+						type:actionConstants.REGISTER_FAILED,
+						error:"Register failed. Server responded with a status "+response.status+" "+response.statusText
+					})
+				}
+				return;
+			case "login":
+				dispatch({
+					type:actionConstants.LOGIN_FAILED,
+					error:"Login failed. Server responded with a status "+response.status+" "+response.statusText
+				})
+				return;
+			case "logout":
+				dispatch({
+					type:actionConstants.CLEAR_STATE
+				})
+				dispatch({
+					type:actionConstants.LOGOUT_FAILED,
+					error:"Server responded with a status "+response.status+" "+response.statusText+". Logging you out."
+					})
+				return;
+			default:
+				return;
+		}
+	}
 }
