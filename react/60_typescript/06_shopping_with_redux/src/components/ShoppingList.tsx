@@ -62,6 +62,9 @@ const ShoppingList:React.FC<{}> = (props) => {
 		dispatch(edit(appState.login.token,item));
 		changeMode("cancel",0);
 	}
+	return (
+		<></>
+	)
 }
 
 export default ShoppingList;
