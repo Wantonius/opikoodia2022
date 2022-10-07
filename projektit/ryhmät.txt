@@ -10,7 +10,7 @@ Toni Lukkaroinen
 Asuntojen etc vuokra-appsi
 
 Ryhmä 3:
-Jukka-Pekka Jalonen
+Jussi-Pekka Jalonen
 Mikko M
 
 Synkronoitu herätyskello 
@@ -30,9 +30,10 @@ Kirpputori appsi
 Ryhmä 6:
 Marko Suominen
 
+Sivut yhteisalukselle appsi
+
 Ryhmä 7:
 Pekka Kivi
 
 Ammatillisen koulutuksen tunnistaminen ja tunnustaminen appsi
 
-Sivut yhteisalukselle appsi
