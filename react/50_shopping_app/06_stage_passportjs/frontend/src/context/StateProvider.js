@@ -25,6 +25,7 @@ const saveToStorage = (state) => {
 }
 
 const listReducer = (state,action) => {
+	console.log(action.type);
 	let tempState = {};
 	switch(action.type) {
 		case ActionConstants.LOADING:

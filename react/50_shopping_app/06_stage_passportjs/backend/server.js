@@ -121,9 +121,7 @@ isUserLogged = (req,res,next) => {
 		return res.status(403).json({message:"Forbidden!"});
 	}
 	if(req.isAuthenticated()) {
-		if(req.headers.token === req.session.token) {
-			return next();
-		}
+		return next();
 	} else {
 		req.logout();
 		req.session.destroy();
@@ -173,9 +171,10 @@ app.post("/login",passport.authenticate("local-login",{failureRedirect:"/"}),fun
 
 app.post("/logout",function(req,res) {
 	if(req.session) {
-		req.logout();
 		req.session.destroy();
-		return res.status(200).json({message:"Success"});
+		req.logout(function(err) {
+			return res.status(200).json({message:"Success"});
+		});
 	} else {
 		return res.status(404).json({message:"Not found"});
 	}
