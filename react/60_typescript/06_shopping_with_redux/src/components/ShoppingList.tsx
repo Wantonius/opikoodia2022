@@ -4,6 +4,9 @@ import {ThunkDispatch} from 'redux-thunk';
 import {AnyAction} from 'redux';
 import {useDispatch,useSelector} from 'react-redux';
 import {remove,edit} from '../actions/shoppingActions';
+import Row from './Row';
+import RemoveRow from './RemoveRow';
+import EditRow from './EditRow';
 
 interface ListState {
 	login:{
@@ -62,8 +65,39 @@ const ShoppingList:React.FC<{}> = (props) => {
 		dispatch(edit(appState.login.token,item));
 		changeMode("cancel",0);
 	}
+	
+	let items = appState.shopping.list.map((item,index) => {
+		if(state.removeIndex === index) {
+			return (
+				<RemoveRow key={item.id} removeItem={removeItem} changeMode={changeMode} item={item}/>
+			)
+		}
+		if (state.editIndex === index) {
+			return (
+				<EditRow key={item.id} editItem={editItem}
+				changeMode={changeMode} item={item}/>
+			)
+		}
+		return(
+			<Row key={item.id} changeMode={changeMode} item={item} index={index}/>
+		)
+	})
+	
 	return (
-		<></>
+		<table>
+			<thead>
+				<tr>
+					<th>Type</th>
+					<th>Count</th>
+					<th>Price</th>
+					<th>Remove</th>
+					<th>Edit</th>
+				</tr>
+			</thead>
+			<tbody>
+			{items}
+			</tbody>
+		</table>
 	)
 }
 
