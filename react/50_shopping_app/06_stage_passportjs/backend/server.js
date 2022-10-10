@@ -120,10 +120,15 @@ isUserLogged = (req,res,next) => {
 	if(req.isAuthenticated()) {
 		return next();
 	} else {
-		req.session.destroy();
-		req.logout(function(err) {
-			return res.status(403).json({message:"Forbidden"});
-		});
+		if(req.session) {
+			req.session.destroy();
+			req.logout(function(err) {
+				return res.status(403).json({message:"Forbidden"});
+			});
+		} else {
+			res.status(403).json({message:"Forbidden"});
+		}
+		 
 	}
 }
 
