@@ -117,15 +117,13 @@ createToken = () => {
 }
 
 isUserLogged = (req,res,next) => {
-	if(!req.headers.token) {
-		return res.status(403).json({message:"Forbidden!"});
-	}
 	if(req.isAuthenticated()) {
 		return next();
 	} else {
-		req.logout();
 		req.session.destroy();
-		return res.status(403).json({message:"Forbidden"});
+		req.logout(function(err) {
+			return res.status(403).json({message:"Forbidden"});
+		});
 	}
 }
 
