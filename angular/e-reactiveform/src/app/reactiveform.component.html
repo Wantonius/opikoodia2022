@@ -1,0 +1,47 @@
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+	<label for="firstname">First name</label>
+	<input type="text"
+			name="firstname"
+			id="firstname"
+			formControlName="firstname"/>
+	<br/>
+	<label for="lastname">Last name</label>
+	<input type="text"
+			name="lastname"
+			id="lastname"
+			formControlName="lastname"/>
+	<br/>
+	<label for="email">Email</label>
+	<input type="email"
+			name="email"
+			id="email"
+			formControlName="email"/>
+	<br/>
+	<label for="phone">Phone</label>
+	<input type="tel"
+			name="phone"
+			id="phone"
+			formControlName="phone"/>
+	<br/>
+	<input type="submit" value="New Contact"/>
+</form>
+<table>
+	<thead>
+		<tr>
+			<th>First name</th>
+			<th>Last name</th>
+			<th>Email</th>
+			<th>Phone</th>
+			<th>Remove</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let contact of list;let idx=index">
+			<td>{{contact.firstname}}</td>
+			<td>{{contact.lastname}}</td>
+			<td>{{contact.email}}</td>
+			<td>{{contact.phone}}</td>
+			<td><button (click)="removeContact(idx)">Remove</button></td>
+		</tr>
+	</tbody>
+</table>
