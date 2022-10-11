@@ -1,0 +1,47 @@
+<form (ngSubmit)="addToList()" #contactForm="ngForm">
+	<label for="firstname">First name</label>
+	<input type="text"
+			id="firstname"
+			name="firstname"
+			[(ngModel)]="contact.firstname"/>
+	<br/>
+	<label for="lastname">Last name</label>
+	<input type="text"
+			id="lastname"
+			name="lastname"
+			[(ngModel)]="contact.lastname"/>
+	<br/>
+	<label for="email">Email</label>
+	<input type="email"
+			id="email"
+			name="email"
+			[(ngModel)]="contact.email"/>
+	<br/>
+	<label for="phone">Phone</label>
+	<input type="tel"
+			id="phone"
+			name="phone"
+			[(ngModel)]="contact.phone"/>
+	<br/>
+	<input type="submit" value="New Contact"/>
+</form>
+<table>
+	<thead>
+		<tr>
+			<th>First name</th>
+			<th>Last name</th>
+			<th>Email</th>
+			<th>Phone</th>
+			<th>Remove</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let c of contactList">
+			<td>{{c.firstname}}</td>
+			<td>{{c.lastname}}</td>
+			<td>{{c.email}}</td>
+			<td>{{c.phone}}</td>
+			<td><button (click)="removeFromList(c.id)">Remove</button></td>
+		</tr>	
+	</tbody>
+</table>
